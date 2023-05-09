@@ -1,0 +1,12 @@
+cd Status
+rd /s /q .git
+
+git init
+git config --global --add safe.directory 'E:/DTDBASE/Pr/C#/ACTIVITY/Status'
+git add warning.html
+git config --global user.email "datdopentakill123@gmail.com"
+git commit -m "first commit"
+git branch -M main
+git remote add origin https://github.com/zombienodie/Risk.git
+git push -f origin main
+

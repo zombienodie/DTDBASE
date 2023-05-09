@@ -1,0 +1,28 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+    <meta charset="UTF-8">
+    <meta http-equiv="X-UA-Compatible" content="IE=edge">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Document</title>
+</head>
+
+<body style="background-color: green;">
+    <center>
+        <!--  -->
+        <h1 style="color: yellow;">❤️hmm.. MỌI THỨ CÓ VẺ ỔN!❤️</h1>
+
+        <!-- image -->
+        <img width="500" src="https://zombienodie.github.io/ttl/hinh-anh-gif-thanh-pho-hien-dai.gif" alt="">
+
+        <!-- gif -->
+        <br>
+        <a href="https://www.youtube.com/playlist?list=PLhoIHhhwEbV2W7iLlceWXSrwkUWw3T3F8">♪CHÚC BẠN NGHE NHẠC VUI VẺ♪</a>
+
+    </center>
+    
+
+</body>
+
+</html>

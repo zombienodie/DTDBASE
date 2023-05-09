@@ -1,0 +1,715 @@
+using System;
+using System.IO;
+
+namespace HelloWorld
+{
+    class Program
+    {
+        static void Main(string[] args)
+        {
+            HelpYou hy = new HelpYou();
+            string sNFM = @"C#THATDAITOICUALOAINGUOI/";
+            string sRun = "";
+            string sTenToiLoi = "";
+            string sNhungLoiNoi = "";
+            string sYN = "";
+            string strName = "";
+            string strKill = "";
+            string strTL = "";
+            int iMenu = 0;
+            string sNewGift = "";
+            string sDeleteGilf = "";
+
+            // EKKO
+            string sSPCT = @"SOPHANCHETTIET/";
+            string strFind = "";
+
+            // HSD
+            string sHSD = @"HSD/";
+
+            /* in Hello World ra man hinh */
+            Console.WriteLine("Hello World!");
+            Console.ReadKey();
+            try{
+                do{
+                    Console.WriteLine("Borgore x Tima Dee - Way Up");
+                    sRun = Console.ReadLine();
+                    iMenu = Menu();
+                    // *EKKO* Warsongs: The Boy Who Shattered Time (MitiS Remix) | Music - League of Legends
+                    if(iMenu == 18){
+                        KhoiTaoSPCT(sSPCT,hy);
+                        do{
+                            // xoa man hinh
+                            Console.Clear();
+                            // hien thi loi khuyen vs thoi gian hien tai tuong ung vs thu muc
+                            ShowSPCT(sSPCT,hy);
+                            Console.WriteLine("..[NOW {0}H {1} <{2}> ] => [FUTURE {3}]..",DateTime.Now.Hour,DateTime.Now.ToString("tt"), hy.DocFile(sSPCT + DateTime.Now.Hour + "/HT.txt"),GetFuture(sSPCT,hy));
+                            // ghi du lieu vao file
+                            hy.GhiFile(sSPCT + DateTime.Now.Hour + "/ST.txt",GetFuture(sSPCT,hy).ToLower(),false);
+                            Console.ResetColor();
+                            // doc du lieu trong file va thong ke so lieu
+                            GetPercent(sSPCT,hy);
+                            Console.ResetColor();
+                            sRun = Console.ReadLine();
+                            // them du lieu
+                            if(sRun == "+"){
+                                Console.Write("1 BATTLE\n2 SURRENDER");
+                                sRun = Console.ReadLine();
+                                // 1
+                                if(sRun == "1"){
+                                    sRun = Console.ReadLine();
+                                    hy.GhiFile(sSPCT + DateTime.Now.Hour + "/BATTLE.txt",sRun + "\n",true);
+                                }
+                                // 2
+                                if(sRun == "2"){
+                                    sRun = Console.ReadLine();
+                                    hy.GhiFile(sSPCT + DateTime.Now.Hour + "/SURRENDER.txt",sRun + "\n",true);
+                                }
+                            }
+                            // xoa du lieu
+                            if(sRun == "-"){
+                                Console.Write("1 BATTLE\n2 SURRENDER");
+                                sRun = Console.ReadLine();
+                                // 1
+                                if(sRun == "1"){
+                                    sRun = Console.ReadLine();
+                                    // xoa thong tin can xoa
+                                    XoaKyTuTrongFile(sSPCT + DateTime.Now.Hour + "/BATTLE.txt","",sRun,hy);
+                                    
+                                }
+                                // 2
+                                if(sRun == "2"){
+                                    sRun = Console.ReadLine();
+                                    // xoa thong tin can xoa
+                                    XoaKyTuTrongFile(sSPCT + DateTime.Now.Hour + "/SURRENDER.txt","",sRun,hy);
+                                }
+                            }
+                            // ghi hoat dong ht
+                            if(sRun.Replace(" ","").ToLower() == "ht" || sRun.Replace(" ","").ToLower() == "now"){
+                                sRun = Console.ReadLine();
+                                // ghi du lieu vao file
+                                hy.GhiFile(sSPCT + DateTime.Now.Hour + "/HT.txt",sRun,false);
+                            }
+                                   
+                                  
+                        }while (sRun.ToLower().Replace(" ","") != "exit");
+                    }
+                    // hsd
+                    if(iMenu == 2){
+                        // khoi tao
+                        // KhoiTaoHSD(sHSD,hy);
+                        do{
+                            Console.Write("HSD ");
+                            sRun = Console.ReadLine();
+                            try{
+                                Console.WriteLine(HSD(hy,sHSD));
+                            }catch(Exception e)
+                            {
+                                Console.WriteLine(e);
+                            }
+                            
+                        }while (sRun.ToLower().Replace(" ","") != "exit");
+                    }
+                    // that toi do
+                    if(iMenu == 1){
+                        // khoi tao chuong trinh
+                        KhoiTao(sNFM,hy);
+                        Console.WriteLine(hy.DemNgay("18/10/2000",DateTime.Now.Day + "/" + DateTime.Now.Month + "/" + DateTime.Now.Year));
+                        // hoat dong cu nguoi dung
+                        do
+                        {
+                            try{
+                                // Xoa man hinh
+                                Console.Clear();
+                                // tra lai mau chu ban dau
+                                Console.ResetColor();
+                                // liet ke thu muc vs ten
+                                strTL =Screen(sNFM,hy);
+                                // hien thi phan thuong cua ban
+                                Console.ForegroundColor = ConsoleColor.Green;
+                                Console.WriteLine("*PHAN THUONG CUA BAN*\n{0}",hy.DocFile(sNFM + "Sys/mygift.txt"));
+                                Console.ResetColor();
+                                // sys information
+                                Console.Write("|POINT ");
+                                if(Int32.Parse(hy.DocFile(sNFM + "Sys/point.txt")) > 0)
+                                    Console.ForegroundColor = ConsoleColor.Green;
+                                else
+                                    Console.ForegroundColor = ConsoleColor.Red;
+                                Console.Write(hy.DocFile(sNFM + "Sys/point.txt"));
+                                Console.ResetColor();
+                                Console.WriteLine(" | GIFT POINTS {0} | NAME: {1} {2}",hy.DocFile(sNFM + "Sys/giftpoints.txt"),hy.DocFile(sNFM + "Sys/name.txt"),strTL);
+                                sRun = Console.ReadLine();
+                                // truy cap noi
+                                if(sRun.ToLower().Replace(" ","") == "speak"){
+                                    // ghi ten toi loi
+                                    Console.WriteLine("TEN TOI LOI~?");
+                                    sTenToiLoi = Console.ReadLine();
+                                    // ghi loi noi
+                                    Console.WriteLine("NHUNG LOI NOI'?");
+                                    sNhungLoiNoi = Console.ReadLine();
+                                    // nhap du lieu vao file
+                                    if(Directory.Exists(sNFM + sTenToiLoi.ToUpper().Replace(" ","")) == true && File.Exists(sNFM + sTenToiLoi.ToUpper().Replace(" ","") + "/speak.txt")){
+                                        // ghi du lieu vao file
+                                        hy.GhiFile(sNFM + sTenToiLoi.ToUpper().Replace(" ","") + "/speak.txt",sNhungLoiNoi,true);
+                                        // thay doi thoi gian trong file ngay thang nam
+                                        hy.GhiFile(sNFM + sTenToiLoi.ToUpper().Replace(" ","") + "/day.txt",DateTime.Now.Day + "",false);
+                                        hy.GhiFile(sNFM + sTenToiLoi.ToUpper().Replace(" ","") + "/month.txt",DateTime.Now.Month + "",false);
+                                        hy.GhiFile(sNFM + sTenToiLoi.ToUpper().Replace(" ","") + "/year.txt",DateTime.Now.Year + "",false);
+                                    }
+                                }
+                                // ghi ten
+                                if(sRun.ToLower().Replace(" ","") == "name"){
+                                    strName = Console.ReadLine();
+                                    hy.GhiFile(sNFM + "Sys/name.txt",strName,false);
+                                }
+                                // ghi kill
+                                if(sRun.ToLower().Replace(" ","") == "newkill"){
+                                // ghi ten toi loi
+                                    Console.WriteLine("TEN TOI LOI~?");
+                                    sTenToiLoi = Console.ReadLine();
+                                    // kiem tra
+                                    if(Directory.Exists(sNFM + sTenToiLoi.ToUpper().Replace(" ","")) == true){
+                                        strKill = Console.ReadLine();
+                                        hy.GhiFile(sNFM + sTenToiLoi.ToUpper().Replace(" ","") + "/kill.txt",strKill,false);
+                                    }
+
+                                }
+                                // truy cap kill
+                                if(sRun.ToLower().Replace(" ","") == "kill"){
+                                    // ghi ten toi loi
+                                    Console.WriteLine("TEN TOI LOI~?");
+                                    sTenToiLoi = Console.ReadLine();
+                                    // kiem tra
+                                    if(Directory.Exists(sNFM + sTenToiLoi.ToUpper().Replace(" ","")) == true){
+                                        // hien thi cau hoi
+                                        Console.WriteLine("BAN DA TRA LOI HOAC THUC HIEN? {0} Y/F",hy.DocFile(sNFM + sTenToiLoi.ToUpper().Replace(" ","") + "/kill.txt"));
+                                        sYN = Console.ReadLine();
+                                        // neu nguoi dung da thuc hien xong yeu cau
+                                        if(sYN.ToLower() == "y"){
+                                            // xoa file speak
+                                            File.Delete(sNFM + sTenToiLoi.ToUpper().Replace(" ","") + "/speak.txt");
+                                            // tao file moi
+                                            hy.TaoFile(sNFM + sTenToiLoi.ToUpper().Replace(" ","") + "/speak.txt");
+                                            // succes
+                                            Console.ForegroundColor = ConsoleColor.Green;
+                                            Console.WriteLine("CONGRATULATIONS.....\nCLAP.. \nCLAP.. \nCLAP.. \nFUN.fun.fun.");
+                                            Console.ReadKey();
+                                            // ghi diem vao file win
+                                            hy.GhiFile(sNFM + sTenToiLoi.ToUpper().Replace(" ","") + "/win.txt",Int32.Parse(hy.DocFile(sNFM + sTenToiLoi.ToUpper().Replace(" ","") + "/win.txt")) + 1 + "",false);
+                                            // ghi diem vao file sys
+                                            hy.GhiFile(sNFM + "Sys/point.txt",Int32.Parse(hy.DocFile(sNFM + "Sys/point.txt")) + 1 + "",false);
+                                            // ghi phan thuong nhiem vu
+                                            hy.GhiFile(sNFM + "Sys/mygift.txt",hy.DocFile(sNFM + sTenToiLoi.ToUpper().Replace(" ","") + "/gift.txt") + "\n",true);
+                                        }
+                                        if(sYN.ToLower() == "f"){
+                                            // ghi diem vao file lose
+                                            hy.GhiFile(sNFM + sTenToiLoi.ToUpper().Replace(" ","") + "/lose.txt",Int32.Parse(hy.DocFile(sNFM + sTenToiLoi.ToUpper().Replace(" ","") + "/lose.txt")) + 1 + "",false);
+                                            // xoa diem vao file sys
+                                            hy.GhiFile(sNFM + "Sys/point.txt",Int32.Parse(hy.DocFile(sNFM + "Sys/point.txt")) - 1 + "",false);
+                                            // thong bao
+                                            Console.ForegroundColor = ConsoleColor.Red;
+                                            Console.WriteLine("OH NOOOOO.....\nOH NOOOOO.....\nOH NOOOOO.....\nOH NOOOOO.....\nOH NOOOOO.....\nOH NOOOOO.....");
+                                            Console.ReadKey();
+                                        }
+                                        else
+                                        {
+                                            // thong bao
+                                            Console.ForegroundColor = ConsoleColor.Yellow;
+                                            Console.WriteLine("WAITING FOR YOU...");
+                                            Console.ReadKey();
+                                        }
+                                    }
+                                    
+                                }
+                                // new gift
+                                if(sRun.ToLower().Replace(" ","") == "gift"){
+                                    // ghi ten toi loi
+                                    Console.WriteLine("TEN TOI LOI~?");
+                                    sTenToiLoi = Console.ReadLine();
+                                    // kiem tra
+                                    if(Directory.Exists(sNFM + sTenToiLoi.ToUpper().Replace(" ","")) == true){
+                                        // ghi phan qua moi
+                                        Console.Write("GIFT: ");
+                                        sNewGift = Console.ReadLine();
+                                        // ghi du lieu vao file
+                                        hy.GhiFile(sNFM + sTenToiLoi.ToUpper().Replace(" ","") + "/gift.txt",sNewGift,false);
+                                    }
+                                }
+                                // nhan phan thuong
+                                if(sRun.ToLower().Replace(" ","") == "danhanthuong"){
+                                    // ghi ten toi loi
+                                    Console.WriteLine("TEN PHAN THUONG");
+                                    sDeleteGilf = Console.ReadLine();
+                                    XoaKyTuTrongFile(sNFM + "Sys/mygift.txt",sNFM + "Sys/giftpoints.txt",sDeleteGilf,hy);
+                                }
+                            }catch(Exception e){
+                                Console.WriteLine(e);
+                                Console.ReadKey();
+                            }
+                        } while (sRun.ToLower().Replace(" ","") != "exit");
+                    }
+                }while (sRun.ToLower().Replace(" ","") != "off");
+                
+                
+            }catch(Exception e){
+                Console.WriteLine(e);
+            }
+        }
+        // FOR n
+        public static void ForN(int num, string str){
+            for (int i = 0; i < num; i++)
+            {
+                Console.Write(str);
+            }
+        }
+        // thay doi file
+        public static void XoaKyTuTrongFile(string strNameFile,string strNameFileGift,string strData,HelpYou hy){
+            // tao file moi
+            hy.TaoFile(strNameFile + "1");
+            // doc file
+            string[] rF = File.ReadAllLines(strNameFile);
+            foreach(string lines in rF){
+                // so sanh
+                if(lines.ToLower().Replace(" ","") != strData.ToLower().Replace(" ",""))
+                    // ghi du lieu vao file
+                    hy.GhiFile(strNameFile + "1",lines + "\n",true);
+                // ghi du lieu vao file diem thuong
+                if(lines.ToLower().Replace(" ","") == strData.ToLower().Replace(" ","") && File.Exists(strNameFileGift) == true)
+                    hy.GhiFile(strNameFileGift,Int32.Parse(hy.DocFile(strNameFileGift)) + 1 + "",false);
+            }
+            // xoa file
+            File.Delete(strNameFile);
+            // chuyen file moi thanh file cu
+            File.Move(strNameFile + "1",strNameFile);
+        }
+        // Menu
+        public static int Menu(){
+            int num = 0;
+
+            // menu
+            Console.WriteLine("-------Menu-------\n1 THAT TOI DO\n2 HSD\n18 Warsongs: The Boy Who Shattered Time (MitiS Remix) | Music - League of Legends");
+            int.TryParse(Console.ReadLine(), out num);
+
+            return num;
+        }
+        // man hinh
+        public static string Screen(string sNFM, HelpYou hy){
+            int iWr = 0;
+            int iGuilty = 0;
+            string strTL = "";
+            string strName = "";
+            
+            // that toi do
+            for (int i = 0; i < 7; i++){
+                if(i == 0)
+                    strName = "TOIDAMDUC";
+                if(i == 1)
+                    strName = "TOIDOKY";
+                if(i == 2)
+                    strName = "TOIKIEUNGAO";
+                if(i == 3)
+                    strName = "TOILUOIBIENG";
+                if(i == 4)
+                    strName = "TOIPHAMAN";
+                if(i == 5)
+                    strName = "TOITHAMLAM";
+                if(i == 6)
+                    strName = "TOITHUHAN";
+                // hien thi canh bao co su kien
+                if(hy.DocFile(sNFM + strName + "/speak.txt").Replace(" ","") != ""){
+                    Console.ForegroundColor = ConsoleColor.Magenta;
+                    Console.Write("-!- ");
+                    Console.ResetColor();
+                    // them warning
+                    iWr++;
+                    // hien phan thuong neu ban chien thang
+                    Console.ForegroundColor = ConsoleColor.Green;
+                    Console.Write("[GIFT: {0}]",hy.DocFile(sNFM + strName + "/gift.txt"));
+                    Console.ResetColor();
+                }
+            
+                // so sanh mau
+                // hien thi mau xanh neu win > lose
+                if(Int32.Parse(hy.DocFile(sNFM + strName + "/win.txt")) > Int32.Parse(hy.DocFile(sNFM + strName + "/lose.txt")))
+                    Console.ForegroundColor = ConsoleColor.Green;
+                //hien thi mau do neu win < lose 
+                if(Int32.Parse(hy.DocFile(sNFM + strName + "/win.txt"))  < Int32.Parse(hy.DocFile(sNFM + strName + "/lose.txt"))){
+                    Console.ForegroundColor = ConsoleColor.Red;
+                    // them toi loi
+                    strTL = strTL + " + " + strName;
+                    iGuilty++;
+                }
+                // hien thi mau xanh da troi neu bang nhau
+                if(Int32.Parse(hy.DocFile(sNFM + strName + "/win.txt")) == Int32.Parse(hy.DocFile(sNFM + strName + "/lose.txt")))
+                    Console.ForegroundColor = ConsoleColor.Cyan;
+                
+
+                Console.WriteLine("[{0} say {1} | {2} WIN | {3} LOSE | {4} DAYS BEFORE | KILL {5}]",hy.KiemTraThuMucVsTen(sNFM + strName),hy.DocFile(sNFM + strName + "/speak.txt"),hy.DocFile(sNFM + strName + "/win.txt"),hy.DocFile(sNFM + strName + "/lose.txt"),hy.DemNgay(hy.DocFile(sNFM + strName + "/day.txt") + "/" + hy.DocFile(sNFM + strName + "/month.txt") + "/" + hy.DocFile(sNFM + strName + "/year.txt"),DateTime.Now.Day + "/" + DateTime.Now.Month + "/" + DateTime.Now.Year),hy.DocFileVsNeuDuLieuKhacRong(hy.DocFile(sNFM + strName + "/speak.txt"),sNFM + strName + "/kill.txt")); 
+            }
+               // show information
+            Console.ResetColor();
+            Console.WriteLine("Warning {0} - Guilty {1} - Sleep {2}",iWr,iGuilty,7 - iWr);
+            
+            return strTL;
+        }
+        // khoi tao HSD
+        public static void KhoiTaoHSD(string sHSD,HelpYou hy){
+            // tao thu muc
+            hy.TaoThuMuc(sHSD);
+        }
+        // khoi tao chuong trinh
+        public static void KhoiTaoSPCT(string sSPCT,HelpYou hy){
+            // tao thu muc hoat dong
+            hy.TaoThuMuc(sSPCT);
+            // khoi tao 24h
+            for (int i = 0; i < 24; i++)
+            {
+                // tao thu muc chua hoat dong
+                hy.TaoThuMuc(sSPCT + "/" + i);
+                // tao file chua hoat dong nen lam
+                hy.TaoFile(sSPCT + "/" + i + "/BATTLE.txt");
+                hy.TaoFile(sSPCT + "/" + i + "/SURRENDER.txt");
+                hy.TaoFile(sSPCT + "/" + i + "/HT.txt");
+                hy.TaoFile(sSPCT + "/" + i + "/ST.txt");
+            }
+        }
+        // hien thi thong tin
+        public static void ShowSPCT(string sSPCT, HelpYou hy){
+            // hien thi thong tin file
+            Console.ForegroundColor = ConsoleColor.White;
+            Console.WriteLine(" --BATTLE- -");
+            Console.ForegroundColor = ConsoleColor.Green;
+            Console.WriteLine(hy.DocFile(sSPCT + DateTime.Now.Hour + "/BATTLE.txt"));
+            Console.ForegroundColor = ConsoleColor.White;
+            Console.WriteLine(" --SURRENDER- -");
+            Console.ForegroundColor = ConsoleColor.Red;
+            Console.WriteLine(hy.DocFile(sSPCT + DateTime.Now.Hour + "/SURRENDER.txt"));
+            Console.ResetColor();
+        }
+        // thong ke so lieu
+        public static void GetPercent(string sSPCT, HelpYou hy){
+            int iNumSafe = 0;
+            int iNumDanger = 0;
+            int iNumWarning = 0;
+            // loc so lieu
+            for (int i = 0; i < 24; i++)
+            {
+                // 
+                if(File.Exists(sSPCT + i  + "/ST.txt") == true){
+                    // 
+                    if(hy.DocFile(sSPCT + i + "/ST.txt").ToLower() == "safe")
+                        iNumSafe++;
+                    if(hy.DocFile(sSPCT + i + "/ST.txt").ToLower() == "danger")
+                        iNumDanger++;
+                    if(hy.DocFile(sSPCT + i + "/ST.txt").ToLower() == "warning")
+                        iNumWarning++;
+                }
+            }
+            try{
+                Console.WriteLine("SAFE {0}% - DANGER {1}% - WARNING {2}%",(iNumSafe * 100 / 24),(iNumDanger * 100 / 24),(iNumWarning * 100 / 24));
+            }catch{
+
+            }
+           
+        }
+        // du doan tuong lai
+        public static string GetFuture(string sSPCT,HelpYou hy){
+            bool bB = false;
+            bool bS = false;
+            string bR = "";
+            // doc du lieu trong file Battle
+            bB = hy.DocFileRTF(sSPCT + DateTime.Now.Hour + "/BATTLE.txt",hy.DocFile(sSPCT + DateTime.Now.Hour + "/HT.txt"));
+            // doc du lieu trong file surrender
+            bS = hy.DocFileRTF(sSPCT + DateTime.Now.Hour + "/SURRENDER.txt",hy.DocFile(sSPCT + DateTime.Now.Hour + "/HT.txt"));
+            // so sanh
+            if(bB == true && bS == false){
+                Console.ForegroundColor = ConsoleColor.Green;
+                bR = "SAFE";
+            }
+            else if(bB == false && bS == true){
+                Console.ForegroundColor = ConsoleColor.Red;
+                bR = "DANGER";
+            }
+            else{
+                Console.ForegroundColor = ConsoleColor.Yellow;
+                bR = "WARNING";
+            }
+            return bR;
+        }
+        // khoi tao chuong trinh
+        public static void KhoiTao(string sNFM,HelpYou hy){
+             // tao thu muc hoat dong
+            hy.TaoThuMuc(sNFM);
+            string strName = "";
+            // tao that dai toi cua loai nguoi
+            for (int i = 0; i < 7; i++)
+            {
+                if(i == 0)
+                    strName = "TOIDAMDUC";
+                if(i == 1)
+                    strName = "TOIDOKY";
+                if(i == 2)
+                    strName = "TOIKIEUNGAO";
+                if(i == 3)
+                    strName = "TOILUOIBIENG";
+                if(i == 4)
+                    strName = "TOIPHAMAN";
+                if(i == 5)
+                    strName = "TOITHAMLAM";
+                if(i == 6)
+                    strName = "TOITHUHAN";
+                hy.TaoThuMuc(sNFM + strName);
+                hy.TaoFile(sNFM + strName + "/kill.txt");
+                hy.TaoFile(sNFM+ strName +  "/speak.txt");
+                hy.TaoFile(sNFM + strName +  "/gift.txt");
+                hy.TaoFileVsSuaLoi(sNFM + strName +  "/win.txt",1);
+                hy.TaoFileVsSuaLoi(sNFM + strName +  "/lose.txt",1);
+                hy.TaoFileVsSuaLoi(sNFM + strName +  "/day.txt",0);
+                hy.TaoFileVsSuaLoi(sNFM + strName +  "/month.txt",0);
+                hy.TaoFileVsSuaLoi(sNFM + strName +  "/year.txt",0);
+            }
+            // SYS
+            hy.TaoThuMuc(sNFM + "SYS");
+            hy.TaoFileVsSuaLoi(sNFM + "SYS/point.txt",1);
+            hy.TaoFileVsSuaLoi(sNFM + "SYS/giftpoints.txt",1);
+            hy.TaoFile(sNFM + "SYS/name.txt");
+            hy.TaoFile(sNFM + "SYS/mygift.txt");
+            
+            // liet ke thu muc va file
+            hy.LietKe(sNFM);
+        }
+        // HSD
+        public static string HSD(HelpYou hy,string strLink){
+            // ghi nsx vs hsd
+            DateTime sDate1;
+            DateTime sDate2;
+            int iMenu = 0;
+            double iSs = 0;
+            double dND = 0;
+            double dNM = 0;
+            double dNY = 0;
+            double dNewDay = 0;
+            double dNewMonth = 0;
+            double dNewYear = 0;
+            string sLoai = "";
+            string sRT = "";
+            string sNewSP = "";
+            
+            // nhap ngay thang nam sx vs hsd
+            Console.Write("NXS(d/m/y): ");
+            sDate1 = DateTime.Parse(Console.ReadLine());
+            Console.Write("HSD(d/m/y): "); 
+            sDate2 = DateTime.Parse(Console.ReadLine());
+            // 
+            Console.Write(hy.DemThang(sDate1,sDate2));
+
+            // chon xuat su san pham
+            Console.WriteLine("\n-------SX-------\n1 SX TRONG NUOC\n2 THUC PHAM TUOI SONG\n3 THUC PHAM CONG NGHE\n4 HOA PHAM\n5 TREN QUAY");
+            int.TryParse(Console.ReadLine(), out iMenu);
+            // san pham trong nuoc
+            if(iMenu == 1){
+                iSs = 0.7;
+                sLoai = "SX TRONG NUOC";
+            }
+            // san pham tuoi song
+            if(iMenu == 2){
+                iSs = 0.4;
+                sLoai = "THUC PHAM TUOI SONG";
+            }
+            // san pham cong nghe
+            if(iMenu == 3){
+                iSs = 0.5;
+                sLoai = "THUC PHAM CONG NGHE";
+            }
+            // san pham hoa pham
+            if(iMenu == 4){
+                iSs = 0.6;
+                sLoai = "HOA PHAM";
+            }
+            // tren quay
+            if(iMenu == 5){
+                iSs = 6;
+                sLoai = "TREN QUAY";
+            }
+
+            dNewMonth = iSs * int.Parse(hy.DemThang(sDate1,sDate2));
+
+            // Console.Write(Math.Round(dNewMonth, 1) + "\n" + Math.Round(dNewMonth) + "\n" + Math.Round((Math.Round(dNewMonth,1) -  Math.Round(dNewMonth)),1) * 30);
+            // neu tren quay
+            if(iMenu == 5){
+                // tinh ngay cua san pham
+                dND = Math.Round(dNewMonth % 30);
+                // tinh thang cua san pham
+                dNM =  (dNewMonth / 30 ) - ((dNewMonth / 30 ) - 1);
+                // tinh nam cua san pham
+                dNY = sDate1.Year;
+            }
+            // neu nhan hang
+            if(iMenu < 5){
+                // tinh ngay cua san pham
+                dND =  Math.Round((Math.Round(dNewMonth,1) -  Math.Round(dNewMonth)),1) * 30;
+                // tinh thang cua san pham
+                dNM =  Math.Round(dNewMonth);
+                // tinh nam cua san pham
+                if(dNM > sDate2.Month)
+                    dNY = sDate2.Year - 1;
+                else 
+                    dNY = sDate2.Year;
+            }
+           
+            // Console.WriteLine("\n" + dND + "/" + dNM + "/" + dNY);
+
+            // // tinh ngay cua sp
+            if(sDate2.Day >= dND)
+                dNewDay = sDate2.Day - dND;
+            if(sDate2.Day < dND){
+                dNewDay = 30 + sDate2.Day - dND;
+                // 
+                dNM = dNM + 1;
+            }
+            // // tinh thang cua sp
+            if(sDate2.Month >=  dNM && sDate2.Day <  dND)
+                dNewMonth =  sDate2.Month - (dNM + 1);
+            if(sDate2.Month >=  dNM && sDate2.Year == dNY)
+                dNewMonth =  sDate2.Month - dNM;
+            
+          
+            if(sDate2.Month < dNM){
+                dNewMonth = 12 + sDate2.Month - dNM;
+                // tinh nam cua san pham
+                dNewYear = sDate2.Year - 1;
+            }
+            // tinh nam cua san pham
+            if(sDate2.Month > dNM)
+                dNewYear = sDate2.Year;
+            if(sDate2.Month == dNM)
+                dNewYear = sDate2.Year;
+            
+            // Console.Write(dNewDay + "/" + dNewMonth + "/" + dNewYear);
+            // Console.ReadKey();
+            if(iMenu != 5)
+                sRT =  "LOAI " + sLoai + "\nTHOI GIAN DUOC PHEP NHAN HANG " + dNewDay + "/" + dNewMonth + "/" + dNewYear +  "\nQUA TTPP " + dNewDay + "/" + (dNewMonth + 1) + "/" +dNewYear;
+            if(iMenu == 5){
+                sRT =  "LOAI " + sLoai + "\nTHOI GIAN BO HANG XUONG QUAY " + dNewDay + "/" + dNewMonth + "/" + dNewYear;
+            }
+            return sRT;
+        }
+    }
+    class HelpYou{
+        // tao thu muc
+        public void TaoThuMuc(string nameFolder){
+            // 1. Đường dẫn tới thư mục cần tạo New Directory
+            string directoryPath = nameFolder;
+            // 2.Khai báo một thể hiện của lớp DirectoryInfo
+            DirectoryInfo directory = new DirectoryInfo(directoryPath);
+            // Kiểm tra thư mục chưa tồn tại mới sử dụng phương thức tạo
+            if (!directory.Exists)
+                // 3.Sử dụng phương thức Create để tạo thư mục.
+                directory.Create();
+        }
+        // tao file
+        public void TaoFile(string nameFile){
+            // neu file chua co
+            if (File.Exists(nameFile) == false){
+                // sử dụng hàm tạo của lớp FileStream
+                FileStream fs = new FileStream(nameFile, FileMode.Create);
+                fs.Close();
+            }
+        }
+        // tao file
+        public void TaoFileVsSuaLoi(string nameFile, int num){
+            // neu file chua co
+            if (File.Exists(nameFile) == false){
+                // sử dụng hàm tạo của lớp FileStream
+                FileStream fs = new FileStream(nameFile, FileMode.Create);
+                fs.Close();
+                StreamWriter sWriter = new StreamWriter(nameFile,true);//fs là 1 FileStream 
+                sWriter.Write(1 - num);
+                sWriter.Close();
+            }
+        }
+        // ghi du lieu vao file
+        public void GhiFile(string nameFile,string data,bool bl){
+            // neu file da co
+            if(File.Exists(nameFile) == true){
+                // sử dụng hàm tạo của lớp FileStream
+                StreamWriter sWriter = new StreamWriter(nameFile,bl);//fs là 1 FileStream 
+                sWriter.Write(data);
+                sWriter.Close();
+            }
+        }
+        // doc du lieu trong file
+        public string DocFile(string nameFile){
+            string text = "...";
+            // neu file co ton tai
+            if(File.Exists(nameFile) == true)
+                text = File.ReadAllText(nameFile);
+            return text;
+        }
+        // doc du lieu trong file va tra ve vi tri can tim
+        public string DocFileVsFind(string nameFile,string strFind){
+            string text = "...";
+            // neu file co ton tai
+            string[] lines = File.ReadAllLines(nameFile);
+            foreach(string s in lines){
+                if(s.Contains(strFind))
+                    text = text + "> " + s + " <\n";
+                else
+                    text = text + s + "\n";
+            }
+            return text;
+        }
+        // doc du lieu trong file va tra ve gia tri can tim
+        public bool DocFileRTF(string nameFile,string strFind){
+            bool bTF = false;
+            // neu file co ton tai
+            string[] lines = File.ReadAllLines(nameFile);
+            foreach(string s in lines){
+                if(s.Contains(strFind))
+                    bTF = true;
+            }
+            return bTF;
+        }
+        // doc du lieu trong file
+        public string DocFileVsNeuDuLieuKhacRong(string data,string nameFile){
+            string text = "...";
+            // neu file co ton tai
+            if(File.Exists(nameFile) == true && data.Replace(" ","") != "")
+                text = File.ReadAllText(nameFile);
+            return text;
+        }
+        // liet ke thu muc va file
+        public void LietKe(string nameFolder){
+            if(Directory.Exists(nameFolder) == true){
+                string[] rFD = Directory.GetDirectories(nameFolder);
+                foreach (string dr in rFD)
+                {
+                    Console.WriteLine(dr);
+                }
+            }
+        }
+        // liet ke thu muc va file
+        public string KiemTraThuMucVsTen(string nameFolder){
+            string nameF = "...";
+            if(Directory.Exists(nameFolder) == true)
+                nameF = nameFolder.Substring(nameFolder.LastIndexOf("/")+1);
+            return nameF;
+        }
+        // dem ngay
+        public string DemNgay(string date1,string date2){
+            DateTime ngaymuon = Convert.ToDateTime(date1);
+            DateTime ngaytra = Convert.ToDateTime(date2);
+            TimeSpan Time = ngaytra - ngaymuon;
+            int TongSoNgay = Time.Days;
+            return TongSoNgay + "";
+        }
+        // dem thang
+        public string DemThang(DateTime date1,DateTime date2){
+            DateTime ngaymuon = Convert.ToDateTime(date1);
+            DateTime ngaytra = Convert.ToDateTime(date2);
+            TimeSpan Time = ngaytra - ngaymuon;
+            int TongSoNgay = Time.Days;
+            return (TongSoNgay / 30) + "";
+        }
+    }
+}

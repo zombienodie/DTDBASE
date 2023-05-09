@@ -1,0 +1,152 @@
+using System;
+using System.Threading;
+using System.IO;
+using System.Diagnostics;
+
+namespace Test
+{
+    class Program
+    {
+        static void Main(string[] args)
+        {
+            string strNameFileSend = "";
+            string strNameFileRun = "";
+            string str = "";
+            int iNum = 0;
+            int numW = 0;
+            Console.Write("NAME FILE > SEND ");
+            strNameFileSend = Console.ReadLine();
+         
+            do{
+                Console.Write("[1]value\n[2]file\n");
+                str = Console.ReadLine();
+                if(str == "1"){
+                    Console.Write("value ");
+                    str = Console.ReadLine();
+                    numW = 0;
+                    // xoa du lieu trong file
+                    FileStream f = new FileStream(strNameFileSend,FileMode.Create);
+                    f.Close();
+                    // dem ky tu trong file
+                    foreach(char ch in str){
+                        numW++;
+                    }
+                    RunWord t = new RunWord();
+                    // ghi di lieu vao file
+                    t.Print(str,0,numW,strNameFileSend);
+                    t.Print1(str,0,numW,strNameFileSend);
+                    //
+                }
+                
+                if(str == "2"){
+                    Console.Write("NAME FILE > RUN ");
+                    strNameFileRun = Console.ReadLine();
+                    if(File.Exists(strNameFileSend) == true && File.Exists(strNameFileRun) == true){   
+                        Console.Write("time sleep ");
+                        int.TryParse(Console.ReadLine(), out iNum);
+
+                        string[] rF = File.ReadAllLines(strNameFileRun);
+                        foreach(string line in rF){
+                                numW = 0;
+                                // xoa du lieu trong file
+                            FileStream f = new FileStream(strNameFileSend,FileMode.Create);
+                            f.Close();
+                            // dem ky tu trong file
+                            foreach(char ch in line){
+                                numW++;
+                            }
+                            RunWord t = new RunWord();
+                            // ghi di lieu vao file
+                            t.Print(line,0,numW,strNameFileSend);
+                            t.Print1(line,0,numW,strNameFileSend);
+                            // 
+                            Thread.Sleep(iNum);
+                        }
+                    }
+                }
+                        
+            }while(strNameFileRun != "exit");
+        
+           
+        }
+        
+    
+        
+        
+    }
+    class RunWord{
+        public string Print(string word,int num1,int num2,string link){
+            int num = 0;
+            int iMax = 0;
+            string str = "";
+            string space = "";
+
+            foreach(char ch in word){
+                num++;
+            }
+            string[] w = new string[num];
+            iMax = num;
+            num = 0;
+            foreach(char ch in word){
+                str = str + ch;
+                w[num] = str;
+                num++;
+            }
+            TextWriter tF = new StreamWriter(link,true);
+            for (int i = 0; i <= num2 - 1; i++)
+            {
+                Console.WriteLine(w[i]);
+                // tao space
+                for(int ii = 0;ii <= w.Length - i - 2;ii++){
+                    space = space + " ";
+                }
+                tF.WriteLine(space + w[i]);
+                space = "";
+            }
+            tF.Close();
+            return null;
+        }
+        public string Print1(string word,int num1,int num2,string link){
+            int num = 0;
+            int iMax = 0;
+            string str = "";
+            string space = "";
+            string str1 = "";
+            foreach(char ch in word){
+                num++;
+            }
+            string[] w = new string[num];
+            iMax = num;
+            num = 0;
+            foreach(char ch in word){
+                str = str + ch;
+                w[num] = str;
+                num++;
+                str =  "";
+            }
+            TextWriter tF = new StreamWriter(link,true);
+            for (int i = 1; i <= iMax; i++)
+            {
+                 // tao space
+                for(int ii = 0;ii <= w.Length - (w.Length - i + 1);ii++){
+                    space = space + " ";
+                }
+                
+                for (int ii = i; ii < iMax ; ii++)
+                {
+                    Console.Write(w[ii]);
+                    str1 = str1 + w[ii];
+                    
+                }
+                tF.WriteLine(str1 + space);
+
+                Console.WriteLine();
+                str1 = "";
+                space = "";
+               
+            }
+            tF.Close();
+            return null;
+        }
+    }
+}
